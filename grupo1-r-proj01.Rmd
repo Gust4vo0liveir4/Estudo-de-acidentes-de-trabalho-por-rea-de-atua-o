@@ -1,0 +1,68 @@
+---
+title: "Estudo de acidentes de trabalho por área de atuação"
+author: "Vitória Barbosa, Armstrong Ferreira, Gustavo Oliveira, João Rezende"
+date: 'Data: `r format(Sys.time(), "%d de %B de %Y")`'
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+# Descrição do problema abordado no projeto integrador   
+  Para o projeto integrador da disciplina será utilizada a avaliação de dados de acidentes de trabalho com e sem CAT registrados em todo o Brasil no ano de 2018 e a participação de mão de obra nos setores de acordo com o código CNAE – Classificação Nacional de Atividades Econômicas.  
+  Com estas informações será realizado o cruzamento de dados, visando associar a quantidade de acidentes por grandes áreas do CNAE a quantidade de mão de obra empregada nesta atividade, visando apontar quais áreas apresentaram o maior risco para a realização de atividades laborais no Brasil em 2018.
+
+# Dados preliminares coletados
+Para o desenvolvimento do Projeto Integrador serão utilizadas as fontes de dados do arquivo ‘Base de dados - Projeto 1’. Os dados para a realização destas análises foram obtidos a partir das seguintes fontes:  
+
+### Classificações CNAE   
+
+```{r 1, echo=FALSE}
+Variaveis_1<-c("Código CNAE", "Denominação")
+Tipo_do_dado_1<-c("Character", "Character")
+tabela1<-data.frame(Variaveis_1,Tipo_do_dado_1)
+tabela1
+```
+Link para acesso [aqui](https://cnae.ibge.gov.br/classificacoes/download-concla/8265-download) 
+
+library(readxl)
+  dados.cnae <- read_excel("C:/Users/Vitória/Documents/Faculdade/ADGO/CNAE20_EstruturaDetalhada.xls")
+  dados.cnae
+  
+
+### Informações sobre acidentes de trabalho com registro CAT no Brasil no ano de 2018 
+
+```{r 2, echo=FALSE}
+Variaveis_2<-c("Código CNAE", "Acidentes sem CAT registrada", "Acidentes típicos - Com CAT registrada", "Acidentes no trajeto - Com CAT registrada", "Acidentes de doença no trabalho - Com CAT registrada")
+Tipo_do_dado_2<-c("Character", "Numeric", "Numeric", "Numeric", "Numeric")
+tabela2<-data.frame(Variaveis_2,Tipo_do_dado_2)
+tabela2
+```
+Link para acesso [aqui](https://www.gov.br/previdencia/pt-br/assuntos/saude-e-seguranca-do-trabalhador/dados-de-acidentes-do-trabalho)    
+
+  library(readxl)
+  dados.acidentes <- read_excel("C:/Users/Vitória/Documents/Faculdade/ADGO/Projeto 1/18Act01_01.xlsx")
+  dados.acidentes
+
+###	Informações sobre a quantidade de mão de obra empregada por Classificação CNAE  
+
+```{r 3, echo=FALSE}
+Variaveis_3<-c("Grupos de atividades", "Total de ocupações por ano")
+Tipo_do_dado_3<-c("Character", "Numeric")
+tabela3<-data.frame(Variaveis_3,Tipo_do_dado_3)
+tabela3
+```
+Link para acesso [aqui](https://www.ibge.gov.br/estatisticas/economicas/servicos/9052-sistema-de-contas-nacionais-brasil.html?=&t=resultados)  
+ 
+ library(readxl)
+  dados.grupos.atividades <- read_excel("C:/Users/Vitória/Documents/Faculdade/ADGO/Projeto 1/tab15_1.xls")
+  dados.grupos.atividades
+
+# Plano de análise de dados
+	 Baseado nas duas bases de dados selecionadas pelo grupo, que disponibilizam os números de acidentes de trabalho por tipo de atividade econômica e também o número de funcionários empregados em cada atividade econômica, o objetivo do grupo é fazer um cruzamento dos mesmos chegando assim a um valor percentual que relaciona o número de acidentes de trabalho registrados em relação ao número de funcionários empregados para cada uma das atividades econômicas. Dessa forma, será possível enxergar, qual a faixa percentual de empregados que se acidentaram no ano de 2018, e assim ranquear quais são as atividades econômicas que oferecem maior risco a seus colaboradores.  
+	Para realizar esse confrontamento de dados, a ideia é criar um gráfico. Nele, no eixo x seriam descritas as atividades. Já no eixo y, seria exibido o valor percentual de acidentes ocorridos no ano de 2018. Para a obtenção dos valores exigidos no eixo y, seria feita a seguinte equação: 
+(Número de acidentes ocorridos no ano de 2018 em determinada atividade econômica /
+Número de funcionários empregados no ano de 2018 em determinada atividade econômica)* 100  
+	Com os resultados em mãos, poderiam ser selecionadas as principais atividades causadoras de risco para uma tentativa de entendimento dos principais motivos de acidentes e assim gerar planos de ação para a mitigação das causas.  
+
+# Relevância do projeto
+  A segurança no trabalho é uma medida fundamental para assegurar o bem-estar dos funcionários e a rotina da empresa. Entretanto, o número de acidentes e doenças relacionadas ao ambiente de trabalho são alarmantes. De acordo com dados do Anuário Estatístico da Previdência Social (Aepes), entre os anos de 2012 e 2016, cerca de 3,5 milhões de pessoas sofreram algum tipo de acidente laboral no Brasil. Além disso, no mundo, segundo a International Labour Organization (ILO), há cerca de 374 milhões de acidentes de trabalho não fatais, 2,78 milhões acidentes fatais e perda econômica estimada em 3,94% do Produto Interno Bruto global a cada ano. Mediante a isso, este projeto se torna relevante por apresentar um meio de mapear a quantidade de acidentes de trabalho que ocorrem no brasil por área de atuação e por quantidade de funcionários do setor, apresentando parâmetros para se compreender as principais áreas geradoras de acidente. Por fim, este projeto permitirá as organizações contar com dados que as guiarão em quais setores possuem necessidade de maior atenção na implantação de medidas de segurança do trabalho e quais setores possuem necessidade de aprimoramento nas medidas já adotadas, afim de evitar com que esses acidentes ocorram. 
